@@ -1,0 +1,89 @@
+<html>
+    <head>
+        <script src="jquery/jquery-1.12.3.min.js"></script>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="bootstrap-3.3.6/css/bootstrap.min.css">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="bootstrap-3.3.6/css/bootstrap-theme.min.css">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="bootstrap-3.3.6/js/bootstrap.min.js"></script>
+        
+        
+        <script src="ace/ace.js"></script>
+		<script src="ace/ext-language_tools.js"></script>
+		<script src="javascript/draw.js"></script>
+    
+        <style>
+            .row {
+                margin-right: 0px;
+                margin-left: 0px;
+            }
+            
+            #editor { 
+                    height: 800px;
+                    width: 100%;
+            }
+                
+            footer {
+                position: fixed;
+                bottom: 10px;
+                right: 10px;
+                width: 300px;
+                height: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <h2>Hour of code</h2>
+                </div>
+	    <div class="col-md-3" style="margin-top:20px">
+	        <button class="pull-right btn btn-default btn-sm" onclick="evaluateScript();"><i class="glyphicon glyphicon-play"></i> Run</button>
+	    </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div id="editor">//WRITE YOUR CODE</div>
+            </div>
+            <div class="col-md-6">
+                <canvas id="canvas" width=800 height=800 style='width:800px;height:800px;border:1px solid #000000;'></canvas>
+            </div>
+        </div>
+        <br>
+         <footer>
+            <img src="img/infobip.png" alt="[image]" height="40" width="280">
+        </footer>
+        
+        <script src="ace/ace.js" type="text/javascript" charset="utf-8"></script>
+        <script>
+            var editor = ace.edit("editor");
+            editor.getSession().setUseWorker(false);
+            editor.setTheme("ace/theme/monokai");
+            editor.getSession().setMode("ace/mode/javascript");
+        </script>
+        <script type="text/javascript">
+            function evaluateScript(){
+
+		try {
+	 		var canvas = document.getElementById('canvas');
+			var context = canvas.getContext('2d');
+
+			context.clearRect(0, 0, canvas.width, canvas.height);
+
+		        var scriptText = editor.getSession().getValue();
+
+		        eval(scriptText);
+		} catch (error){
+			alert("Error! " + error.message);
+		}
+            }
+        </script>
+    </body>
+
+</html>
